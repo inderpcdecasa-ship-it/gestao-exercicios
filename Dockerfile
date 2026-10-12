@@ -11,8 +11,8 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 # Remove qualquer index.php da raiz que atrapalhe
 RUN rm -f /var/www/html/index.php
 
-# ✅ Pasta correta do Laravel
-ENV NGINX_DOCUMENT_ROOT /var/www/html/public
+# ✅ Pasta correta do Laravel para a imagem richarvey
+ENV WEBROOT /var/www/html/public
 
 # ✅ PORTA QUE O RENDER EXIGE = 10000
 ENV PORT=10000
