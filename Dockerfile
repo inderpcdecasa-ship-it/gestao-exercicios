@@ -17,6 +17,10 @@ ENV WEBROOT /var/www/html/public
 # ✅ PORTA QUE O RENDER EXIGE = 10000
 ENV PORT=10000
 
+# Copia e dá permissão ao script de arranque (migrações automáticas)
+COPY iniciar.sh /iniciar.sh
+RUN chmod +x /iniciar.sh
+
 # Permissões corretas
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
@@ -24,3 +28,6 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # Abre a porta certa
 EXPOSE 10000
+
+# Executa o script de arranque personalizado no container
+CMD ["/iniciar.sh"]
