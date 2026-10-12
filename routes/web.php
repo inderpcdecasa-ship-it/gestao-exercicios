@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FotoAparelhoController;
 
+// Redireciona a raiz para o painel administrativo
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/admin');
 });
 
 // Evita "Route [login] not defined" quando a sessão expira
