@@ -1,5 +1,6 @@
 #!/bin/sh
-php artisan config:cache
-php artisan route:cache
+php artisan package:discover --ansi
+php artisan config:clear
+php artisan cache:clear
 php artisan migrate --force
 exec /start.sh
