@@ -1,9 +1,11 @@
 FROM richarvey/nginx-php-fpm:3.0.0
-
 WORKDIR /var/www/html
 
 # Copia os arquivos do projeto
 COPY . .
+
+# Remove qualquer index.php que esteja na RAIZ (fora da pasta public)
+RUN rm -f /var/www/html/index.php
 
 # Instala dependências do Composer
 RUN composer install --no-dev --optimize-autoloader
