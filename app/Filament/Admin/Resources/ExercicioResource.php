@@ -29,12 +29,12 @@ class ExercicioResource extends Resource
                     ->columnSpanFull()
                     ->label('Descrição / Instruções'),
 
-                // Foto do aparelho: campo nativo do Filament.
-                // Grava em storage/app/public/aparelhos (mesmo formato do Modo Treino)
-                // e reduz a foto no navegador antes de enviar (bom para fotos de celular).
+                // Foto do aparelho ajustada para mostrar a pré-visualização visual correta
                 Forms\Components\FileUpload::make('foto_aparelho')
                     ->label('Foto do Aparelho')
                     ->image()
+                    ->panelLayout('stacked') // Mostra a pré-visualização em formato de bloco/cartão
+                    ->imagePreviewHeight('250') // Altura ideal para ver a foto com clareza
                     ->disk('public')
                     ->directory('aparelhos')
                     ->visibility('public')
