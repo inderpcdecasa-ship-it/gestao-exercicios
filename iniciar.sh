@@ -8,10 +8,13 @@ fi
 # 2. Executa as migrações na base de dados PostgreSQL (cria o utilizador administrador automaticamente)
 php artisan migrate --force
 
-# 3. Limpa caches de configuração, rotas e aplicação
+# 3. Corrige as permissões das pastas críticas para evitar erros 403
+chmod -R 755 storage bootstrap/cache public
+
+# 4. Limpa caches de configuração, rotas e aplicação
 php artisan config:clear
 php artisan route:clear
 php artisan cache:clear
 
-# 4. Inicia o servidor web do Render
+# 5. Inicia o servidor web do Render
 exec /start.sh
