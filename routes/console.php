@@ -18,10 +18,13 @@ Artisan::command('sistema:backup', function () {
         File::makeDirectory($pastaBackup, 0755, true);
     }
 
-    // 1. Copiar o arquivo do banco de dados SQLite
-    $dbPath = database_path('database.sqlite');
-    if (File::exists($dbPath)) {
-        File::copy($dbPath, "{$pastaBackup}/database.sqlite");
+    // 1. Copiar o arquivo do banco de dados SQLite (apenas se o driver ativo for sqlite)
+    $dbConnection = config('database.default');
+    if ($dbConnection === 'sqlite') {
+        $dbPath = database_path('database.sqlite');
+        if (File::exists($dbPath)) {
+            File::copy($dbPath, "{$pastaBackup}/database.sqlite");
+        }
     }
 
     // 2. Copiar os uploads (fotos dos aparelhos, etc.)
@@ -31,7 +34,7 @@ Artisan::command('sistema:backup', function () {
     }
 
     $this->info("Backup gerado com sucesso em: {$pastaBackup}");
-})->describe('Faz backup do banco SQLite e dos arquivos de upload');
+})->describe('Faz backup do banco e dos arquivos de upload');
 
 // Agenda o comando para rodar todos os dias automaticamente
 Schedule::command('sistema:backup')->daily();

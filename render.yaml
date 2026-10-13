@@ -11,6 +11,8 @@ services:
         value: production
       - key: APP_DEBUG
         value: false
+      - key: APP_KEY
+        value: base64:WQIaYsxwqLjAISLXrfXzWtruBijNj0r+k2PL6mkOwu0=
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
@@ -25,3 +27,7 @@ services:
         value: saOWFZvGmaamumjThEULnM5MZ5WGcj3z
       - key: FILESYSTEM_DISK
         value: public
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
