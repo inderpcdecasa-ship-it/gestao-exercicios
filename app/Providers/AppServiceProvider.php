@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
         if (env('APP_ENV') === 'production' || request()->header('x-forwarded-proto') === 'https') {
             URL::forceScheme('https');
         }
+
+        // Define o idioma e a localização globalmente para Português do Brasil
+        App::setLocale('pt_BR');
+        Carbon::setLocale('pt_BR');
     }
 }

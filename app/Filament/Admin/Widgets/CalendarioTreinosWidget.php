@@ -144,9 +144,15 @@ class CalendarioTreinosWidget extends Widget
             ->all();
 
         $dia = Carbon::today();
+        $agora = Carbon::now();
 
+        // Se hoje ainda não tem treino registado:
         if (!isset($diasComTreino[$dia->toDateString()])) {
-            $dia->subDay();
+            // Se ainda for antes das 21:00, o dia de hoje NÃO quebra a sequência (dá tempo de treinar)
+            if ($agora->hour < 21) {
+                $dia->subDay();
+            }
+            // Se já passou das 21:00, mantém $dia em hoje para avaliar se quebra
         }
 
         $sequencia = 0;
