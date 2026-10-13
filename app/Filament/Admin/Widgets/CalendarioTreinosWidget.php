@@ -103,9 +103,23 @@ class CalendarioTreinosWidget extends Widget
             return true;
         }
 
-        // Feriados Móveis baseados na Páscoa
-        $pascoaTimestamp = easter_date($ano);
-        $pascoa = Carbon::createFromTimestamp($pascoaTimestamp);
+        // Feriados Móveis baseados na Páscoa (Cálculo matemático puro)
+        $a = $ano % 19;
+        $b = intval($ano / 100);
+        $c = $ano % 100;
+        $d = intval($b / 4);
+        $e = $b % 4;
+        $f = intval(($b + 8) / 25);
+        $g = intval(($b - $f + 1) / 3);
+        $h = (19 * $a + $b - $d - $g + 15) % 30;
+        $i = intval($c / 4);
+        $k = $c % 4;
+        $l = (32 + 2 * $e + 2 * $i - $h - $k) % 7;
+        $m = intval(($a + 11 * $h + 22 * $l) / 451);
+        $mes = intval(($h + $l - 7 * $m + 114) / 31);
+        $diaPascoa = (($h + $l - 7 * $m + 114) % 31) + 1;
+
+        $pascoa = Carbon::create($ano, $mes, $diaPascoa);
 
         $carnaval = $pascoa->copy()->subDays(47)->toDateString();
         $sextaSanta = $pascoa->copy()->subDays(2)->toDateString();
