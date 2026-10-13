@@ -5,12 +5,11 @@ if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force
 fi
 
-# 2. Executa as migrações para criar as tabelas (como 'sessions', 'users', etc.)
+# 2. Executa as migrações na base de dados PostgreSQL
 php artisan migrate --force
 
-# 3. Limpa caches antigas para evitar conflitos
+# 3. Limpa caches
 php artisan config:clear
-php artisan route:clear
 php artisan cache:clear
 
 # 4. Inicia o servidor web do Render
